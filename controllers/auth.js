@@ -9,7 +9,7 @@ const User = require("../models/User");
 
 // Register
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   if (!name || !email || !password) {
     throw new BadRequestError("Please provide name, email and password");
   }
@@ -21,7 +21,7 @@ const register = async (req, res) => {
   }
 
   //   Creating User
-  const user = await User.create({ name, email, password, role: "employee" });
+  const user = await User.create({ name, email, password, role: role ? role : "employee" });
 
   // Creating Token & sending cookie
   const userToken = {
